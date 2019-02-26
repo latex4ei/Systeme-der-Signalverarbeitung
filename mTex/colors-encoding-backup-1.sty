@@ -1,0 +1,33 @@
+%
+%
+% mTex Preset ---------------------------------------------------------------------------------------------------------
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{mTex/colors}[2018/06/18, custom LaTeX colors v1.0, Michael Ebnicher thanks to LaTex4EI]
+
+\RequirePackage{xcolor}
+
+% methods to choose colors
+	\providecommand{\getColor}[2]{%
+		\@ifundefinedcolor{#1}{\colorlet{#1}{#2}}{}}
+	
+%-----------------------------
+% Colors
+%-----------------------------
+
+	\definecolor{blue}{RGB}{0, 122, 255}			% ios blau
+	\definecolor{magenta}{RGB}{255, 45, 85}		% ios magenta
+	\definecolor{green}{RGB}{51, 196, 97}		% ios grün
+	\definecolor{black}{RGB}{0, 0, 0}			% schwarz
+	\definecolor{grey80}{RGB}{102, 102, 102}		%grau 60%
+	\definecolor{grey50}{RGB}{125, 125, 125}		% grau 50%
+	\definecolor{grey20}{RGB}{204, 204, 204}		% grau 20% 
+	\definecolor{grey25}{RGB}{190,190,190}		% grau 25%
+	\definecolor{grey35}{RGB}{165, 165, 165}		% grau 35%
+	\definecolor{orange}{RGB}{244, 102, 79}		% ios orange
+	\definecolor{yellow}{RGB}{255, 178, 79}		%gelb
+	\definecolor{light_blue}{RGB}{19, 118, 140}	% light blue
+	\definecolor{dark_blue}{RGB}{44, 56, 65}	% dark blue
+	\definecolor{dark_green}{RGB}{2,178,31}		% dark green
+	\definecolor{violet}{RGB}{243,124,152}		% violet
+	\definecolor{tuerkis}{RGB}{88,234,161}		% tuerkis

@@ -1,0 +1,69 @@
+%
+%
+% mTex Preset ---------------------------------------------------------------------------------------------------------
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{mTex/mTex_basics}[2018/06/20, custom LaTeX basics v1.0, Michael Ebnicher thanks to LaTex4EI]
+
+% Basics ----------------------------------------
+
+	\def \u {\"u}
+	\def \a {\"a}
+	\def \o {\"o}
+	\def \s {\ss{}}
+
+
+\RequirePackage[pagebackref=true,pdfpagelabels]{hyperref}
+% Title
+	\makeatletter
+	\renewcommand{\title}[1]{%
+	  \gdef\@title{#1}%
+	  \gdef\thetitle{#1}
+	  \pdfstringdef{\@pdftitle}{\@title}%
+	  \hypersetup{pdftitle=\@pdftitle}%
+	}
+
+
+	% Institution
+	\providecommand{\institution}[1]{
+		\gdef\theinstitution{#1}
+	}
+
+	% Author
+	\renewcommand{\author}[1]{%
+		\gdef\@author{#1}%
+		\gdef\theauthor{#1}
+		\pdfstringdef{\@pdfauthor}{\@author}%
+		\hypersetup{pdfauthor=\@pdfauthor}%
+	}
+
+	% Date
+	\global\let\thedate\@date
+	\renewcommand{\date}[1]{%
+		\gdef\@date{#1}%
+		\gdef\thedate{#1}
+	}
+	\makeatother
+
+	% Email
+	\providecommand{\myemail}[1]{\gdef\theemail{#1}}
+	% Web page
+	%\providecommand{\mywebsite}[1]{\gdef\thewebsite{#1}}
+	% Date with git commit number
+	\providecommand{\mydate}[1]{\gdef\themydate{#1}}
+
+	% set defaults
+	\author{Michael Ebnicher}
+	\title{LaTeX Dokument}
+	\myemail{m.ebnicher@icloud.com}
+	%\mywebsite{www.latex4ei.de}
+	\mydate{\today}
+
+	\AtBeginDocument{
+		% set pdfoptions
+		\hypersetup{
+			pdftitle={\thetitle},
+	        pdfauthor={\theauthor},
+	        pdfcreator={pdf},
+	        pdfkeywords={Zusammenfassung, Formelsammlung}
+	    }
+	}

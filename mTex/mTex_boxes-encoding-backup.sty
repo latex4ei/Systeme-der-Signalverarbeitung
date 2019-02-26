@@ -1,0 +1,396 @@
+%
+%
+% mTex Preset ---------------------------------------------------------------------------------------------------------
+
+\NeedsTeXFormat{LaTeX2e}
+\ProvidesPackage{mTex/mTex_boxes}[2018/06/18, custom LaTeX boxes v1.0, Michael Ebnicher thanks to LaTex4EI]
+
+
+% Packages
+% ----------------------------------------------------------------------
+\RequirePackage{mdframed}			% package to make frames for exaples, definitions and theorems
+\RequirePackage{enumitem}
+\RequirePackage{mTex/colors} 	% color definitions
+\RequirePackage{graphicx}
+\RequirePackage{helvet}
+\RequirePackage{listings}
+
+\newenvironment{change_to_Helvetica}{\fontfamily{phv}\selectfont}{\par}
+\newenvironment{set_Computer_Mod}{\fontfamily{ccr}\selectfont}{\par}
+
+\newcommand*{\authorimg}[1]{%
+  \raisebox{-.45\baselineskip}{%
+    \includegraphics[
+      height=1.4\baselineskip ,
+      width=1.4\baselineskip,
+      keepaspectratio,
+    ]{#1}%
+  }%
+}
+\lstdefinestyle{mystyle}{
+    %backgroundcolor=\color{backcolour},   
+    commentstyle=\color{green},
+    keywordstyle=\color{orange},
+    numberstyle=\tiny\color{grey50},
+    stringstyle=\color{light_blue},
+    basicstyle=\ttfamily %basicstyle=\footnotesize,
+    breakatwhitespace=true,      %false    
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style = mystyle}
+
+\newcommand\tab[1][1cm]{\hspace*{#1}}
+
+
+% ======================================================================
+% Styles
+% ======================================================================
+
+% Basic box
+% ----------------------------------------------------------------------
+	\mdfdefinestyle{specialbox}{
+		% Outer Margins
+		leftmargin=0mm,
+		rightmargin=0mm,
+		startcode={\vspace{0.4em}},		% FIX: spacing bug on nested frames
+		endcode={\vspace{0.4em}},		% FIX: spacing bug on nested frames
+		skipabove=0mm,					% FIX: spacing bug on nested frames
+		skipbelow=0mm,	
+		needspace =20,
+		%nobreak=false,				% FIX: spacing bug on nested frames
+		% inner margins
+		innertopmargin=1mm,
+		% frame
+		linewidth=0.2mm
+	}
+
+% Sectionbox: provides grey boxes for better readablitity of sections
+% ----------------------------------------------------------------------
+	\global\mdfdefinestyle{sectionbox}{
+		startcode={\makeatother\if@nobreak\vspace{3cm}\null\vspace{-3cm}\fi\makeatletter},		% FIX: breaks 3cm after section
+		nobreak=true,					% FIX: unwanted behavior with multicolumn
+		% Margin left, right, bottom and top of the boxes (-1 mm for higher width)
+		leftmargin=-1mm,
+		rightmargin=-1mm,
+		skipbelow=1mm,
+		skipabove=1mm,
+		% Inner margin of the content of the box
+		innerleftmargin=1.2mm,
+		innerrightmargin=1.2mm,
+		innertopmargin=2mm,
+		innerbottommargin = 2mm,
+		% Colors of lines and background
+		%backgroundcolor=col_sectionbox!3,
+		linecolor=grey25
+	}
+
+% Emphbox: box with red line around for important definitions
+% ----------------------------------------------------------------------
+	\global\mdfdefinestyle{emphbox}{
+		% basic style
+		style=specialbox,
+		% show only top and bottom line
+		hidealllines=false,
+		topline=true,
+		bottomline=true,
+		leftline = true,
+		rightline = true,
+		innerleftmargin=1.2mm,
+		innerrightmargin=1.2mm,
+		innertopmargin=2mm,
+		innerbottommargin = 2mm,
+		% background
+		%backgroundcolor=col_cookbox!5,
+		% Line color
+		linecolor=orange,
+		% Title
+		frametitlerule=false,
+		frametitlefont = { \color{orange} \normalfont\bfseries}, 
+		%frametitlebackgroundcolor=col_cookbox!5,
+		%frametitlealignment=\centering,
+		frametitleaboveskip=1.5mm,
+		frametitlebelowskip=1.5mm
+	}
+
+% Symbolbox
+% ----------------------------------------------------------------------
+	\global\mdfdefinestyle{symbolbox}{
+		% basic style
+		style=specialbox,
+		innerbottommargin = 1.5mm,
+		% background color
+		%backgroundcolor=col_symbolbox!5,
+		% orange outer line
+		linecolor=orange	}
+
+% Bluebox
+% ----------------------------------------------------------------------
+	\global\mdfdefinestyle{bluebox}{
+		% basic style
+		style=specialbox,
+		% show only top and bottom line
+		hidealllines=false,
+		topline=true,
+		bottomline=true,
+		leftline = true,
+		rightline = true,
+		innerleftmargin=1.2mm,
+		innerrightmargin=1.2mm,
+		innertopmargin=2mm,
+		innerbottommargin = 2mm,
+		% background
+		%backgroundcolor=col_cookbox!5,
+		% Line color
+		linecolor=light_blue,
+		% Title
+		frametitlerule=false,
+		frametitlefont ={ \color{light_blue} \normalfont\bfseries}, 
+		%frametitlebackgroundcolor=col_cookbox!5,
+		%frametitlealignment=\centering,
+		frametitleaboveskip=1.5mm,
+		frametitlebelowskip=1.5mm
+	}
+
+% Tablebox
+% ----------------------------------------------------------------------
+	\global\mdfdefinestyle{tablebox}{
+		% basic style
+		style=specialbox,
+		% show only top and bottom line
+		hidealllines=true,
+		topline=true,
+		bottomline=true,
+		leftline = true,
+		rightline = true,
+		% inner margin
+		innerleftmargin=1.2mm,
+		innerrightmargin=1.2mm,
+		innertopmargin=2mm,
+		innerbottommargin = 2mm,
+		% Color
+		%backgroundcolor=col_table!5,
+		% Title
+		frametitlerule=true,
+		frametitlerule=false,
+		frametitlefont ={ \color{yellow} \normalfont\bfseries}, 
+		%frametitlebackgroundcolor=green,
+		frametitleaboveskip=1.5mm,
+		frametitlebelowskip=1.5mm,
+		% line color
+		linecolor=yellow
+	}
+
+% Infobox ----------------------------------------------------------------------------------------------------------------
+
+	\global\mdfdefinestyle{infobox}{
+		% basic style
+		style=specialbox,
+		% show only top and bottom line
+		hidealllines=false,
+		topline=true,
+		bottomline=true,
+		leftline = true,
+		rightline = true,
+		innerleftmargin=1.2mm,
+		innerrightmargin=1.2mm,
+		innertopmargin=2mm,
+		innerbottommargin = 2mm,
+		% background
+		%backgroundcolor=col_cookbox!5,
+		% Line color
+		linecolor=green,
+		% Title
+		frametitlerule=false,
+		frametitlefont ={ \color{green} \normalfont\bfseries}, 
+		%frametitlealignment=\centering,
+		frametitleaboveskip=1.5mm,
+		frametitlebelowskip=1.5mm
+	}
+
+
+% Defbox ----------------------------------------------------------------------------------------------------------------
+
+	\global\mdfdefinestyle{defbox}{
+		% basic style
+		style=specialbox,
+		% show only top and bottom line
+		hidealllines=false,
+		topline=true,
+		bottomline=true,
+		leftline = true,
+		rightline = true,
+		innerleftmargin=1.2mm,
+		innerrightmargin=1.2mm,
+		innertopmargin=2mm,
+		innerbottommargin = 2mm,
+		% background
+		%backgroundcolor=col_cookbox!5,
+		% Line color
+		linecolor=light_blue,
+		% Title
+		frametitlerule=false,
+		frametitlefont ={ \color{light_blue} \normalfont\bfseries}, 
+		%frametitlealignment=\centering,
+		frametitleaboveskip=1.5mm,
+		frametitlebelowskip=1.5mm
+	}
+
+
+% Codebox --------------------------------------------------------------------------------------------------------------
+
+	\global\mdfdefinestyle{codebox}{
+		% basic style
+		style=specialbox,
+		% show only top and bottom line
+		hidealllines=false,
+		topline=false,
+		bottomline=false,
+		leftline = false,
+		rightline = false,
+		innerleftmargin=5mm,
+		innerrightmargin=1.2mm,
+		innertopmargin=0mm,
+		innerbottommargin = 2mm,
+		% show only top and bottom line
+		%hidealllines=false,
+		%topline=true,
+		%bottomline=true,
+		%leftline = true,
+		%rightline = tue,
+		%innerleftmargin = 1mm,
+		% background
+		%backgroundcolor=col_cookbox!5,
+		% Line color
+		%linecolor=grey50,
+		% Title
+		frametitlerule=false,
+		frametitlefont ={ \normalfont\bfseries}, 
+		%frametitlealignment=\centering,
+		%frametitleaboveskip=1mm,
+		%frametitlebelowskip=2mm
+		nobreak=true,
+	}
+
+
+% ======================================================================
+% Environments
+% ======================================================================
+
+% sectionbox
+% ----------------------------------------------------------------------
+	\newmdenv[style=sectionbox]{sectionbox}
+
+% bluebox
+% ----------------------------------------------------------------------
+	
+	\newmdenv[style=bluebox]{blueboxframe}
+	\newenvironment{bluebox}[1]{
+		\begin{blueboxframe}[frametitle=#1]
+	} {
+		\end{blueboxframe}
+	}
+
+% emphbox
+% ----------------------------------------------------------------------
+	
+	%\newmdenv[style=emphbox, startinnercode={\centering}]{emphbox*}
+	\newmdenv[style=emphbox]{emphboxframe}
+	\newenvironment{formulabox}[1]{
+		\begin{emphboxframe}[frametitle={\authorimg{mTex/images/gleichung.png}  \quad #1}]
+		
+	}  {
+		\end{emphboxframe}
+	}
+
+% symbolbox
+% ----------------------------------------------------------------------
+	\newmdenv[style=symbolbox]{symbolbox}
+	
+% Infobox ----------------------------------------------------------
+	
+	\newmdenv[style=infobox]{infoboxframe}
+	\newenvironment{infobox} [1]{
+		\begin{infoboxframe}[frametitle={\authorimg{mTex/images/info.png}  \quad #1}]
+	}  {
+		\end{infoboxframe}
+	}
+	
+	
+% Defbox ----------------------------------------------------------
+	
+	\newmdenv[style=defbox]{defboxframe}
+	\newenvironment{defbox} [1]{
+		\begin{defboxframe}[frametitle={\authorimg{mTex/images/satz.png}  \quad #1}]
+		
+	}{
+		\end{defboxframe}
+	}
+
+
+% Codebox ----------------------------------------------------------
+	
+	\newmdenv[style=codebox]{codeboxframe}
+	%\newenvironment{ppl}{\asciifamily{ppl}\selectfont}{\par}
+	\newenvironment{codebox} [3]{
+		\begin{codeboxframe}[frametitle=#1]
+		%\egin{ppl}
+		%\begin{set_Computer_Mod}
+		%\begin{lstlisting}%[language = Python]
+		\inputencoding{latin1}
+		\lstinputlisting[language=#3]{#2}
+		\inputencoding{utf8}
+		%\color{grey50}
+	}  {
+		%\end{set_Computer_Mod}
+		%\end{ppl}
+		%\end{lstlisting}
+		\end{codeboxframe}
+	}
+
+
+
+% tablebox
+% ----------------------------------------------------------------------
+	\newmdenv[style=tablebox]{tableboxframe}
+	\newenvironment{tablebox}[2]{
+		% beginning
+		\setlength{\tabcolsep}{4pt}
+		\begin{tableboxframe}[frametitle={\authorimg{mTex/images/tabelle.png}\begin{tabular*}{\columnwidth}{@{\extracolsep\fill}#1@{}}  \quad #2\end{tabular*}}]
+			\begin{tabular*}{\columnwidth}{@{\extracolsep\fill}#1@{}}%
+	}{
+		%ending
+			\end{tabular*}%
+		\end{tableboxframe}
+	}
+	\newenvironment{tablebox*}[1]{
+		% beginning
+		\setlength{\tabcolsep}{4pt}
+		\begin{tableboxframe}
+		\centering
+			\begin{tabular}{@{}#1@{}}%
+	}{
+		%ending
+			\end{tabular}%
+		\end{tableboxframe}
+	}
+
+% cookbox
+% ----------------------------------------------------------------------
+	\newenvironment{cookbox}[1]{
+		\begin{blueboxframe}[frametitle={\authorimg{mTex/images/kochrezept.png}  \quad #1}]
+			\begin{enumerate}[label=\bfseries\arabic*.]
+	}{
+		\end{enumerate}
+		\end{blueboxframe}
+	}
+
+% Ende von \input
+\endinput
